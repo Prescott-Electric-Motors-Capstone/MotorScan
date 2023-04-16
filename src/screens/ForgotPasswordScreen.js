@@ -1,18 +1,20 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import CustomInput from "../components/CustomInput";
 import CustomButton from "../components/CustomButton";
 
 const ForgotPasswordScreen = () => {
 	const [email, setEmail] = useState("");
+	const nav = useNavigation();
 
 	const onSendPressed = () => {
-		console.warn("Send");
+		nav.navigate("NewPassword");
 	};
 
 	const onSignInPressed = () => {
-		console.warn("Sign In");
+		nav.navigate("SignIn");
 	};
 
 	return (
@@ -24,11 +26,7 @@ const ForgotPasswordScreen = () => {
 
 				<CustomButton text="Confirm" onPress={onSendPressed} />
 
-				<CustomButton
-					text="Back to sign in"
-					onPress={onSignInPressed}
-					type="TERTIARY"
-				/>
+				<CustomButton text="Back to sign in" onPress={onSignInPressed} type="TERTIARY" />
 			</View>
 		</ScrollView>
 	);

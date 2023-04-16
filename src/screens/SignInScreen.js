@@ -1,12 +1,6 @@
 import React, { useState } from "react";
-import {
-	Image,
-	StyleSheet,
-	Text,
-	View,
-	useWindowDimensions,
-	ScrollView,
-} from "react-native";
+import { Image, StyleSheet, Text, View, useWindowDimensions, ScrollView } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import Logo from "../../assets/images/pem-logo.png";
 import CustomInput from "../components/CustomInput";
@@ -16,28 +10,26 @@ import SocialSignInButtons from "../components/SocialSignInButtons";
 const SignInScreen = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+
 	const { height } = useWindowDimensions();
+	const nav = useNavigation();
 
 	const onSignInPressed = () => {
-		console.warn("Sign In");
+		nav.navigate("Home");
 	};
 
 	const onForgotPasswordPressed = () => {
-		console.warn("Forgot Password");
+		nav.navigate("ForgotPassword");
 	};
 
 	const onSignUpPressed = () => {
-		console.warn("Sign Up");
+		nav.navigate("SignUp");
 	};
 
 	return (
 		<ScrollView showsVerticalScrollIndicator={false}>
 			<View style={styles.root}>
-				<Image
-					source={Logo}
-					style={[styles.logo, { height: height * 0.3 }]}
-					resizeMode="contain"
-				/>
+				<Image source={Logo} style={[styles.logo, { height: height * 0.3 }]} resizeMode="contain" />
 
 				<CustomInput placeholder="Email" value={email} setValue={setEmail} />
 				<CustomInput
@@ -48,11 +40,7 @@ const SignInScreen = () => {
 				/>
 
 				<CustomButton text="Sign In" onPress={onSignInPressed} />
-				<CustomButton
-					text="Forgot password?"
-					onPress={onForgotPasswordPressed}
-					type="TERTIARY"
-				/>
+				<CustomButton text="Forgot password?" onPress={onForgotPasswordPressed} type="TERTIARY" />
 
 				<SocialSignInButtons />
 

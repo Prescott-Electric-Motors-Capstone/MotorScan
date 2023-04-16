@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import CustomInput from "../components/CustomInput";
 import CustomButton from "../components/CustomButton";
 
 const EmailConfirmationScreen = () => {
 	const [code, setCode] = useState("");
+	const nav = useNavigation();
 
 	const onConfirmPressed = () => {
-		console.warn("Confirm");
+		nav.navigate("Home");
 	};
 
 	const onResendPressed = () => {
@@ -16,7 +18,7 @@ const EmailConfirmationScreen = () => {
 	};
 
 	const onSignInPressed = () => {
-		console.warn("Sign In");
+		nav.navigate("SignIn");
 	};
 
 	return (
@@ -27,16 +29,8 @@ const EmailConfirmationScreen = () => {
 				<CustomInput placeholder="Code" value={code} setValue={setCode} />
 
 				<CustomButton text="Confirm" onPress={onConfirmPressed} />
-				<CustomButton
-					text="Resend code"
-					onPress={onResendPressed}
-					type="SECONDARY"
-				/>
-				<CustomButton
-					text="Back to sign in"
-					onPress={onSignInPressed}
-					type="TERTIARY"
-				/>
+				<CustomButton text="Resend code" onPress={onResendPressed} type="SECONDARY" />
+				<CustomButton text="Back to sign in" onPress={onSignInPressed} type="TERTIARY" />
 			</View>
 		</ScrollView>
 	);

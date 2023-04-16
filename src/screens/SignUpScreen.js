@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import CustomInput from "../components/CustomInput";
 import CustomButton from "../components/CustomButton";
@@ -10,9 +11,10 @@ const SignUpScreen = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [passwordRepeat, setPasswordRepeat] = useState("");
+	const nav = useNavigation();
 
 	const onRegisterPressed = () => {
-		console.warn("Register");
+		nav.navigate("EmailConfirmation");
 	};
 
 	const onTermsPressed = () => {
@@ -24,7 +26,7 @@ const SignUpScreen = () => {
 	};
 
 	const onSignInPressed = () => {
-		console.warn("Sign Up");
+		nav.navigate("SignIn");
 	};
 
 	return (
@@ -62,11 +64,7 @@ const SignUpScreen = () => {
 
 				<SocialSignInButtons />
 
-				<CustomButton
-					text="Have an account? Sign in"
-					onPress={onSignInPressed}
-					type="TERTIARY"
-				/>
+				<CustomButton text="Have an account? Sign in" onPress={onSignInPressed} type="TERTIARY" />
 			</View>
 		</ScrollView>
 	);

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import CustomInput from "../components/CustomInput";
 import CustomButton from "../components/CustomButton";
@@ -7,13 +8,14 @@ import CustomButton from "../components/CustomButton";
 const NewPasswordScreen = () => {
 	const [code, setCode] = useState("");
 	const [newPassword, setNewPassword] = useState("");
+	const nav = useNavigation();
 
 	const onSubmitPressed = () => {
-		console.warn("Submit");
+		nav.navigate("Home");
 	};
 
 	const onSignInPressed = () => {
-		console.warn("Sign In");
+		nav.navigate("SignIn");
 	};
 
 	return (
@@ -30,11 +32,7 @@ const NewPasswordScreen = () => {
 
 				<CustomButton text="Submit" onPress={onSubmitPressed} />
 
-				<CustomButton
-					text="Back to sign in"
-					onPress={onSignInPressed}
-					type="TERTIARY"
-				/>
+				<CustomButton text="Back to sign in" onPress={onSignInPressed} type="TERTIARY" />
 			</View>
 		</ScrollView>
 	);
