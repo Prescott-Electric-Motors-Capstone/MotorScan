@@ -4,12 +4,18 @@ import { StyleSheet, Text } from "react-native";
 
 import SignInScreen from "./src/screens/SignInScreen";
 import SignUpScreen from "./src/screens/SignUpScreen";
+import EmailConfirmationScreen from "./src/screens/EmailConfirmationScreeen";
+import ForgotPasswordScreen from "./src/screens/ForgotPasswordScreen";
+import NewPasswordScreen from "./src/screens/NewPasswordScreen";
 
 const App = () => {
 	return (
 		<SafeAreaView style={styles.root}>
 			{/* <SignInScreen /> */}
-			<SignUpScreen />
+			{/* <SignUpScreen /> */}
+			{/* <EmailConfirmationScreen /> */}
+			{/* <ForgotPasswordScreen /> */}
+			<NewPasswordScreen />
 		</SafeAreaView>
 	);
 };
