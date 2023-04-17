@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Text, TextInput, ScrollView, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const Dashboard = () => {
+const HomeScreen = () => {
 	const [searchQuery, setSearchQuery] = useState("");
 
 	return (
@@ -51,4 +51,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default Dashboard;
+export default HomeScreen;

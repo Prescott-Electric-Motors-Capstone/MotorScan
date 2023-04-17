@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Image, StyleSheet, Text, View, useWindowDimensions, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-import Logo from "../../assets/images/pem-logo.png";
 import CustomInput from "../components/CustomInput";
 import CustomButton from "../components/CustomButton";
 import SocialSignInButtons from "../components/SocialSignInButtons";
@@ -29,7 +28,7 @@ const SignInScreen = () => {
 	return (
 		<ScrollView showsVerticalScrollIndicator={false}>
 			<View style={styles.root}>
-				<Image source={Logo} style={[styles.logo, { height: height * 0.3 }]} resizeMode="contain" />
+				<Text style={styles.title}>Sign In</Text>
 
 				<CustomInput placeholder="Email" value={email} setValue={setEmail} />
 				<CustomInput
@@ -63,6 +62,12 @@ const styles = StyleSheet.create({
 		width: "70%",
 		maxWidth: 300,
 		maxHeight: 150,
+	},
+	title: {
+		fontSize: 24,
+		fontWeight: "bold",
+		color: "#051c60",
+		margin: 10,
 	},
 });
 
