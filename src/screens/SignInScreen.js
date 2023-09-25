@@ -1,19 +1,28 @@
 import React, { useState } from "react";
-import { Image, StyleSheet, Text, View, useWindowDimensions, ScrollView } from "react-native";
+import {
+	Image,
+	StyleSheet,
+	Text,
+	TextInput,
+	View,
+	useWindowDimensions,
+	ScrollView,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useForm, Controller } from "react-hook-form";
 
 import CustomInput from "../components/CustomInput";
 import CustomButton from "../components/CustomButton";
 import SocialSignInButtons from "../components/SocialSignInButtons";
 
 const SignInScreen = () => {
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
-
 	const { height } = useWindowDimensions();
 	const nav = useNavigation();
 
-	const onSignInPressed = () => {
+	const { control, handleSubmit } = useForm();
+
+	const onSignInPressed = (data) => {
+		console.log(data);
 		nav.navigate("Home");
 	};
 
@@ -30,16 +39,20 @@ const SignInScreen = () => {
 			<View style={styles.root}>
 				<Text style={styles.title}>Sign In</Text>
 
-				<CustomInput placeholder="Email" value={email} setValue={setEmail} />
+				<CustomInput name="email" placeholder="Email" control={control} />
 				<CustomInput
+					name="password"
 					placeholder="Password"
-					value={password}
-					setValue={setPassword}
 					secureTextEntry
+					control={control}
 				/>
 
-				<CustomButton text="Sign In" onPress={onSignInPressed} />
-				<CustomButton text="Forgot password?" onPress={onForgotPasswordPressed} type="TERTIARY" />
+				<CustomButton text="Sign In" onPress={handleSubmit(onSignInPressed)} />
+				<CustomButton
+					text="Forgot password?"
+					onPress={onForgotPasswordPressed}
+					type="TERTIARY"
+				/>
 
 				<SocialSignInButtons />
 
