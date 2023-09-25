@@ -1,19 +1,34 @@
 import React, { useState } from "react";
-import { Image, StyleSheet, Text, View, useWindowDimensions, ScrollView } from "react-native";
+import {
+	Image,
+	StyleSheet,
+	Text,
+	TextInput,
+	View,
+	useWindowDimensions,
+	ScrollView,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useForm, Controller } from "react-hook-form";
 
 import CustomInput from "../components/CustomInput";
 import CustomButton from "../components/CustomButton";
 import SocialSignInButtons from "../components/SocialSignInButtons";
 
 const SignInScreen = () => {
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
-
 	const { height } = useWindowDimensions();
 	const nav = useNavigation();
 
-	const onSignInPressed = () => {
+	const {
+		control,
+		handleSubmit,
+		formState: { errors },
+	} = useForm();
+
+	console.log(errors);
+
+	const onSignInPressed = (data) => {
+		console.log(data);
 		nav.navigate("Home");
 	};
 
@@ -30,16 +45,32 @@ const SignInScreen = () => {
 			<View style={styles.root}>
 				<Text style={styles.title}>Sign In</Text>
 
-				<CustomInput placeholder="Email" value={email} setValue={setEmail} />
 				<CustomInput
+					name="email"
+					placeholder="Email"
+					control={control}
+					rules={{ required: "Email is required" }}
+				/>
+				<CustomInput
+					name="password"
 					placeholder="Password"
-					value={password}
-					setValue={setPassword}
 					secureTextEntry
+					control={control}
+					rules={{
+						required: "Password is required",
+						minLength: {
+							value: 6,
+							message: "Password should be minimum 6 characters long",
+						},
+					}}
 				/>
 
-				<CustomButton text="Sign In" onPress={onSignInPressed} />
-				<CustomButton text="Forgot password?" onPress={onForgotPasswordPressed} type="TERTIARY" />
+				<CustomButton text="Sign In" onPress={handleSubmit(onSignInPressed)} />
+				<CustomButton
+					text="Forgot password?"
+					onPress={onForgotPasswordPressed}
+					type="TERTIARY"
+				/>
 
 				<SocialSignInButtons />
 

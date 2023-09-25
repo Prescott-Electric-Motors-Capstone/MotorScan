@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { Image, StyleSheet, Text, View, useWindowDimensions } from "react-native";
+import {
+	Image,
+	StyleSheet,
+	Text,
+	View,
+	useWindowDimensions,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import Logo from "../../assets/images/pem-logo.png";
@@ -18,11 +24,15 @@ const WelcomeScreen = () => {
 
 	return (
 		<View style={styles.root}>
-			<Image source={Logo} style={[styles.logo, { height: height * 0.9 }]} resizeMode="contain" />
+			<Image
+				source={Logo}
+				style={[styles.logo, { height: height * 0.9 }]}
+				resizeMode="contain"
+			/>
 
 			<View style={styles.buttonContainer}>
 				<CustomButton text="Sign In" onPress={onSignInPressed} />
-				<CustomButton text="Sign In" onPress={onSignUpPressed} />
+				<CustomButton text="Sign Up" onPress={onSignUpPressed} />
 			</View>
 		</View>
 	);
