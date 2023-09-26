@@ -1,13 +1,14 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, View, ScrollView } from "react-native";
+import React from "react";
+import { StyleSheet, ScrollView, View, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useForm } from "react-hook-form";
 
-import CustomInput from "../components/CustomInput";
-import CustomButton from "../components/CustomButton";
+import CustomInput from "../../components/CustomInput";
+import CustomButton from "../../components/CustomButton";
 
 const NewPasswordScreen = () => {
 	const { control, handleSubmit } = useForm();
+
 	const nav = useNavigation();
 
 	const onSubmitPressed = (data) => {
@@ -26,30 +27,28 @@ const NewPasswordScreen = () => {
 
 				<CustomInput
 					name="code"
-					placeholder="Code"
 					control={control}
-					rules={{ required: "Code is required" }}
+					placeholder="Code"
+					rules={{
+						required: "Code is required",
+					}}
 				/>
+
 				<CustomInput
 					name="password"
-					placeholder="Enter your new password"
 					control={control}
+					placeholder="Enter your new password"
 					secureTextEntry
 					rules={{
 						required: "Password is required",
 						minLength: {
-							value: 6,
-							message: "Password should be minimum 6 characters long",
-						},
-						maxLength: {
-							value: 20,
-							message: "Password should be maximum 20 characters long",
+							value: 8,
+							message: "Password should be minimum 8 characters long",
 						},
 					}}
 				/>
 
 				<CustomButton text="Submit" onPress={handleSubmit(onSubmitPressed)} />
-
 				<CustomButton
 					text="Back to sign in"
 					onPress={onSignInPressed}
@@ -68,7 +67,7 @@ const styles = StyleSheet.create({
 	title: {
 		fontSize: 24,
 		fontWeight: "bold",
-		color: "#051c60",
+		color: "#051C60",
 		margin: 10,
 	},
 });

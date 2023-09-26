@@ -17,16 +17,21 @@ const HomeScreen = ({ navigation }) => {
 	const nav = useNavigation();
 
 	const onSettingsPressed = () => {
-		nav.navigate("Settings");
+		// nav.navigate("Settings");
+		console.warn("Settings Pressed");
 	};
 
 	const onNewDevicePressed = () => {
-		nav.navigate("NewDevice");
+		// nav.navigate("NewDevice");
+		console.warn("New Device Pressed");
 	};
 
 	return (
 		<SafeAreaView style={styles.container}>
-			<TouchableOpacity onPress={onSettingsPressed} style={styles.settingsButton}>
+			<TouchableOpacity
+				onPress={onSettingsPressed}
+				style={styles.settingsButton}
+			>
 				<Icon name="cog" size={24} color="#051c60" />
 			</TouchableOpacity>
 

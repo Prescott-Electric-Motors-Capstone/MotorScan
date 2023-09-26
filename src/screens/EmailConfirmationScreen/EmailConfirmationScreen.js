@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, View, ScrollView } from "react-native";
+import React from "react";
+import { StyleSheet, ScrollView, View, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useForm } from "react-hook-form";
 
-import CustomInput from "../components/CustomInput";
-import CustomButton from "../components/CustomButton";
+import CustomInput from "../../components/CustomInput";
+import CustomButton from "../../components/CustomButton";
 
 const EmailConfirmationScreen = () => {
 	const { control, handleSubmit } = useForm();
@@ -17,7 +17,7 @@ const EmailConfirmationScreen = () => {
 	};
 
 	const onResendPressed = () => {
-		console.warn("Resend code");
+		console.warn("onResendPressed");
 	};
 
 	const onSignInPressed = () => {
@@ -27,18 +27,19 @@ const EmailConfirmationScreen = () => {
 	return (
 		<ScrollView showsVerticalScrollIndicator={false}>
 			<View style={styles.root}>
-				<Text style={styles.title}>Confirm Your Email</Text>
+				<Text style={styles.title}>Create Account</Text>
 
 				<CustomInput
 					name="code"
 					control={control}
-					placeholder="Code"
+					placeholder="Enter you confirmation code"
 					rules={{
 						required: "Confirmation code is required",
 					}}
 				/>
 
 				<CustomButton text="Confirm" onPress={handleSubmit(onConfirmPressed)} />
+
 				<CustomButton
 					text="Resend code"
 					onPress={onResendPressed}
@@ -62,7 +63,7 @@ const styles = StyleSheet.create({
 	title: {
 		fontSize: 24,
 		fontWeight: "bold",
-		color: "#051c60",
+		color: "#051C60",
 		margin: 10,
 	},
 });

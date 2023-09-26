@@ -1,13 +1,14 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, View, ScrollView } from "react-native";
+import React from "react";
+import { StyleSheet, ScrollView, View, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useForm } from "react-hook-form";
 
-import CustomInput from "../components/CustomInput";
-import CustomButton from "../components/CustomButton";
+import CustomInput from "../../components/CustomInput";
+import CustomButton from "../../components/CustomButton";
 
 const ForgotPasswordScreen = () => {
 	const { control, handleSubmit } = useForm();
+
 	const nav = useNavigation();
 
 	const onSendPressed = (data) => {
@@ -25,14 +26,15 @@ const ForgotPasswordScreen = () => {
 				<Text style={styles.title}>Reset Your Password</Text>
 
 				<CustomInput
-					name="email"
+					name="username"
 					control={control}
-					placeholder="Email"
-					rules={{ required: "Email is required" }}
+					placeholder="Username"
+					rules={{
+						required: "Username is required",
+					}}
 				/>
 
-				<CustomButton text="Confirm" onPress={handleSubmit(onSendPressed)} />
-
+				<CustomButton text="Send" onPress={handleSubmit(onSendPressed)} />
 				<CustomButton
 					text="Back to sign in"
 					onPress={onSignInPressed}
@@ -51,7 +53,7 @@ const styles = StyleSheet.create({
 	title: {
 		fontSize: 24,
 		fontWeight: "bold",
-		color: "#051c60",
+		color: "#051C60",
 		margin: 10,
 	},
 });
