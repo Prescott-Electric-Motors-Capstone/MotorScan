@@ -26,6 +26,8 @@ This project is set up using Expo as the emulator for the mobile app during deve
 5. Follow the <a href="https://docs.amplify.aws/start/getting-started/installation/q/integration/react-native/">AWS Amplify CLI Documentation</a> to set up your Amplify project.
 6. Run `npm start` at the terminal to start the project (Metro bundle), and the QR code can be scanned with your devices to display the app.
 
+Please commit all changes to the development-branch, do not directly commit to the main branch.
+
 <br/>
 <br/>
 
