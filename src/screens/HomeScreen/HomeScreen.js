@@ -11,17 +11,26 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useNavigation } from "@react-navigation/native";
+import { Auth } from "aws-amplify";
+
+import CustomButton from "../../components/CustomButton";
 
 const HomeScreen = ({ navigation }) => {
 	const [searchQuery, setSearchQuery] = useState("");
 	const nav = useNavigation();
 
+	const signOut = () => {
+		Auth.signOut();
+	};
+
 	const onSettingsPressed = () => {
-		nav.navigate("Settings");
+		// nav.navigate("Settings");
+		console.warn("Settings Pressed");
 	};
 
 	const onNewDevicePressed = () => {
-		nav.navigate("NewDevice");
+		// nav.navigate("NewDevice");
+		console.warn("New Device Pressed");
 	};
 
 	return (
@@ -42,6 +51,10 @@ const HomeScreen = ({ navigation }) => {
 				/>
 			</View>
 
+			<TouchableOpacity style={styles.signOutButton} onPress={signOut}>
+				<Text style={{ color: "red", fontSize: 20 }}>Sign Out</Text>
+			</TouchableOpacity>
+
 			<View style={styles.newDeviceContainer}>
 				<Pressable onPress={onNewDevicePressed} style={styles.newDeviceButton}>
 					<Text style={styles.newDeviceText}>New Device</Text>
@@ -56,6 +69,13 @@ const styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: "#FFFFFF",
 		paddingHorizontal: 20,
+	},
+	signOutButton: {
+		width: "100%",
+		textAlign: "center",
+		color: "red",
+		marginTop: 20,
+		fontSize: 20,
 	},
 	searchBar: {
 		backgroundColor: "#F5F5F5",
