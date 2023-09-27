@@ -51,15 +51,15 @@ const HomeScreen = ({ navigation }) => {
 				/>
 			</View>
 
-			<Text style={styles.signOutButton} onPress={signOut}>
-				Sign Out
-			</Text>
+			<TouchableOpacity style={styles.signOutButton} onPress={signOut}>
+				<Text style={{ color: "red", fontSize: 20 }}>Sign Out</Text>
+			</TouchableOpacity>
 
-			{/* <View style={styles.newDeviceContainer}>
+			<View style={styles.newDeviceContainer}>
 				<Pressable onPress={onNewDevicePressed} style={styles.newDeviceButton}>
 					<Text style={styles.newDeviceText}>New Device</Text>
 				</Pressable>
-			</View> */}
+			</View>
 		</SafeAreaView>
 	);
 };
@@ -74,8 +74,7 @@ const styles = StyleSheet.create({
 		width: "100%",
 		textAlign: "center",
 		color: "red",
-		marginTop: "auto",
-		marginVertical: 20,
+		marginTop: 20,
 		fontSize: 20,
 	},
 	searchBar: {
