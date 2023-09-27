@@ -1,14 +1,14 @@
 import React from "react";
-import { StyleSheet, ScrollView, View, Text } from "react-native";
+import { Alert, StyleSheet, ScrollView, View, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useForm } from "react-hook-form";
+import { Auth } from "aws-amplify";
 
 import CustomInput from "../../components/CustomInput";
 import CustomButton from "../../components/CustomButton";
-import SocialSignInButtons from "../../components/SocialSignInButtons/SocialSignInButtons";
+import SocialSignInButtons from "../../components/SocialSignInButtons";
 
-const EMAIL_REGEX =
-	/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
 const SignUpScreen = () => {
 	const { control, handleSubmit, watch } = useForm();
@@ -16,8 +16,20 @@ const SignUpScreen = () => {
 
 	const nav = useNavigation();
 
-	const onRegisterPressed = () => {
-		nav.navigate("EmailConfirmation");
+	const onRegisterPressed = async (data) => {
+		const { username, password, email, name } = data;
+
+		try {
+			const response = await Auth.signUp({
+				username,
+				password,
+				attributes: { email, name, preferred_username: username },
+			});
+
+			nav.navigate("EmailConfirmation", { username });
+		} catch (e) {
+			Alert.alert("Oops", e.message);
+		}
 	};
 
 	const onSignInPressed = () => {
@@ -36,6 +48,15 @@ const SignUpScreen = () => {
 		<ScrollView showsVerticalScrollIndicator={false}>
 			<View style={styles.root}>
 				<Text style={styles.title}>Create Account</Text>
+
+				<CustomInput
+					name="name"
+					control={control}
+					placeholder="Name"
+					rules={{
+						required: "Name is required",
+					}}
+				/>
 
 				<CustomInput
 					name="username"
@@ -88,10 +109,7 @@ const SignUpScreen = () => {
 					}}
 				/>
 
-				<CustomButton
-					text="Register"
-					onPress={handleSubmit(onRegisterPressed)}
-				/>
+				<CustomButton text="Register" onPress={handleSubmit(onRegisterPressed)} />
 
 				<Text style={styles.text}>
 					By registering, you confirm that you accept our{" "}
@@ -106,11 +124,7 @@ const SignUpScreen = () => {
 
 				<SocialSignInButtons />
 
-				<CustomButton
-					text="Have an account? Sign in"
-					onPress={onSignInPressed}
-					type="TERTIARY"
-				/>
+				<CustomButton text="Have an account? Sign in" onPress={onSignInPressed} type="TERTIARY" />
 			</View>
 		</ScrollView>
 	);

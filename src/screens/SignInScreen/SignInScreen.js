@@ -1,22 +1,18 @@
-import {
-	Image,
-	StyleSheet,
-	ScrollView,
-	useWindowDimensions,
-	View,
-} from "react-native";
-import React from "react";
+import { Alert, Image, StyleSheet, ScrollView, useWindowDimensions, View } from "react-native";
+import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useForm, Controller } from "react-hook-form";
+import { Auth } from "aws-amplify";
 
 import Logo from "../../../assets/images/pem-logo.png";
 import CustomInput from "../../components/CustomInput";
 import CustomButton from "../../components/CustomButton";
-import SocialSignInButtons from "../../components/SocialSignInButtons/SocialSignInButtons";
+import SocialSignInButtons from "../../components/SocialSignInButtons";
 
 const SignInScreen = () => {
-	const nav = useNavigation();
 	const { height } = useWindowDimensions();
+	const nav = useNavigation();
+	const [loading, setLoading] = useState(false);
 
 	const {
 		control,
@@ -24,9 +20,21 @@ const SignInScreen = () => {
 		formState: { errors },
 	} = useForm();
 
-	const onSignInPressed = (data) => {
-		console.log(data);
-		nav.navigate("Home");
+	const onSignInPressed = async (data) => {
+		if (loading) {
+			return;
+		}
+
+		setLoading(true);
+
+		try {
+			const response = await Auth.signIn(data.username, data.password);
+			console.log(response);
+		} catch (e) {
+			Alert.alert("Oops", e.message);
+		}
+
+		setLoading(false);
 	};
 
 	const onForgotPasswordPressed = () => {
@@ -40,11 +48,7 @@ const SignInScreen = () => {
 	return (
 		<ScrollView showsVerticalScrollIndicator={false}>
 			<View style={styles.root}>
-				<Image
-					source={Logo}
-					style={[styles.logo, { height: height * 0.8 }]}
-					resizeMode="contain"
-				/>
+				<Image source={Logo} style={[styles.logo, { height: height * 0.8 }]} resizeMode="contain" />
 
 				<CustomInput
 					name="username"
@@ -67,13 +71,12 @@ const SignInScreen = () => {
 					}}
 				/>
 
-				<CustomButton text="Sign In" onPress={handleSubmit(onSignInPressed)} />
-
 				<CustomButton
-					text="Forgot Password?"
-					onPress={onForgotPasswordPressed}
-					type="TERTIARY"
+					text={loading ? "Loading..." : "Sign In"}
+					onPress={handleSubmit(onSignInPressed)}
 				/>
+
+				<CustomButton text="Forgot Password?" onPress={onForgotPasswordPressed} type="TERTIARY" />
 
 				<SocialSignInButtons />
 

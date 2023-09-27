@@ -1,7 +1,8 @@
 import React from "react";
-import { StyleSheet, ScrollView, View, Text } from "react-native";
+import { Alert, StyleSheet, ScrollView, View, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useForm } from "react-hook-form";
+import { Auth } from "aws-amplify";
 
 import CustomInput from "../../components/CustomInput";
 import CustomButton from "../../components/CustomButton";
@@ -11,9 +12,22 @@ const NewPasswordScreen = () => {
 
 	const nav = useNavigation();
 
-	const onSubmitPressed = (data) => {
-		console.warn(data);
-		nav.navigate("Home");
+	const onSubmitPressed = async (data) => {
+		try {
+			await Auth.forgotPasswordSubmit(data.username, data.code, data.password);
+			nav.navigate("SignIn");
+		} catch (e) {
+			Alert.alert("Oops", e.message);
+		}
+	};
+
+	const onResendPressed = async () => {
+		try {
+			await Auth.resendSignUp(user_name);
+			Alert.alert("Success", "A new confirmation code has been sent to your email");
+		} catch (e) {
+			Alert.alert("Oops", e.message);
+		}
 	};
 
 	const onSignInPressed = () => {
@@ -24,6 +38,15 @@ const NewPasswordScreen = () => {
 		<ScrollView showsVerticalScrollIndicator={false}>
 			<View style={styles.root}>
 				<Text style={styles.title}>Reset Your Password</Text>
+
+				<CustomInput
+					name="username"
+					control={control}
+					placeholder="Username"
+					rules={{
+						required: "Username is required",
+					}}
+				/>
 
 				<CustomInput
 					name="code"
@@ -49,11 +72,8 @@ const NewPasswordScreen = () => {
 				/>
 
 				<CustomButton text="Submit" onPress={handleSubmit(onSubmitPressed)} />
-				<CustomButton
-					text="Back to sign in"
-					onPress={onSignInPressed}
-					type="TERTIARY"
-				/>
+				<CustomButton text="Resend code" onPress={onResendPressed} type="SECONDARY" />
+				<CustomButton text="Back to sign in" onPress={onSignInPressed} type="TERTIARY" />
 			</View>
 		</ScrollView>
 	);
