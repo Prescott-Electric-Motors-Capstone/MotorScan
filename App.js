@@ -1,11 +1,8 @@
 import React from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { StyleSheet, Text } from "react-native";
-import Navigation from "./src/navigation";
-import { Amplify, Auth } from "aws-amplify";
-import config from "./src/aws-exports";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-Amplify.configure(config);
+import Navigation from "./src/navigation";
 
 const App = () => {
 	return (
