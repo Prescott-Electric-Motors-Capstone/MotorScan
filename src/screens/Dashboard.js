@@ -10,8 +10,8 @@ import {
 	Button,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Icon from "react-native-vector-icons/FontAwesome";
 import { useNavigation } from "@react-navigation/native";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 import { FIREBASE_AUTH, FIREBASE_DB } from "../../config/FirebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
@@ -45,14 +45,6 @@ const Dashboard = () => {
 		fetchUserName();
 	}, []);
 
-	// return (
-	// 	<View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-	// 		<Text style={{ fontSize: 20, fontWeight: "bold" }}>Hello, {name}</Text>
-
-	// 		<Button title="Sign Out" onPress={() => FIREBASE_AUTH.signOut()} />
-	// 	</View>
-	// );
-
 	return (
 		<View style={styles.container}>
 			<TouchableOpacity onPress={onSettingsPressed} style={styles.settingsButton}>
@@ -72,6 +64,7 @@ const Dashboard = () => {
 			</View>
 
 			<Button title="Sign Out" onPress={() => FIREBASE_AUTH.signOut()} />
+
 			<View style={styles.newDeviceContainer}>
 				<Pressable onPress={onNewDevicePressed} style={styles.newDeviceButton}>
 					<Text style={styles.newDeviceText}>New Device</Text>

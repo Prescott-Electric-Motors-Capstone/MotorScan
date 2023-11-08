@@ -145,11 +145,11 @@ const SignUp = () => {
 				}}
 			/>
 
-			<View style={{ marginBottom: 5 }}>
+			{/* <View style={{ marginBottom: 5 }}>
 				<Text></Text>
-			</View>
+			</View> */}
 
-			{/* <Text style={styles.text}>
+			<Text style={styles.text}>
 				By registering, you confirm that you accept our{" "}
 				<Text style={styles.link} onPress={onTOUPressed}>
 					Terms of Use
@@ -158,7 +158,7 @@ const SignUp = () => {
 				<Text style={styles.link} onPress={onPrivacyPressed}>
 					Privacy Policy
 				</Text>
-			</Text> */}
+			</Text>
 
 			<CustomButton
 				text={loading ? "Loading..." : "Register"}
