@@ -94,7 +94,7 @@ const SignUp = () => {
 	};
 
 	return (
-		<View style={styles.root}>
+		<ScrollView contentContainerStyle={styles.root} showsVerticalScrollIndicator={false}>
 			<Text style={styles.title}>Create an Account</Text>
 
 			<CustomInput
@@ -165,7 +165,7 @@ const SignUp = () => {
 				onPress={handleSubmit(onRegisterPressed)}
 			/>
 			<CustomButton text="Have an account? Sign in" onPress={onSignInPressed} type="TERTIARY" />
-		</View>
+		</ScrollView>
 	);
 };
 

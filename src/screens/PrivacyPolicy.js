@@ -7,7 +7,7 @@ const PrivacyPolicy = () => {
 	const nav = useNavigation();
 
 	const onClosePressed = () => {
-		nav.navigate("SignUp");
+		nav.goBack();
 	};
 
 	return (

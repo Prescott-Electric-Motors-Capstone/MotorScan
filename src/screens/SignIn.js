@@ -1,5 +1,14 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Image, StyleSheet, useWindowDimensions, Alert } from "react-native";
+import {
+	View,
+	Text,
+	TextInput,
+	Image,
+	StyleSheet,
+	useWindowDimensions,
+	Alert,
+	ScrollView,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useForm } from "react-hook-form";
 

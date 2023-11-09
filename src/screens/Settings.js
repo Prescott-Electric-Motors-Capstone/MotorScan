@@ -1,5 +1,8 @@
 import React from "react";
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Linking } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
+import { FIREBASE_AUTH } from "../../config/FirebaseConfig";
 
 import AntDesign from "react-native-vector-icons/AntDesign";
 import FeatherIcon from "react-native-vector-icons/Feather";
@@ -7,8 +10,22 @@ import MaterialCommunityIcon from "react-native-vector-icons/MaterialCommunityIc
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 
 const Settings = () => {
+	const nav = useNavigation();
+
+	const onSignOutPressed = () => {
+		FIREBASE_AUTH.signOut();
+	};
+
 	const onContactPressed = () => {
 		Linking.openURL("https://prescottelectricmotors.ca/en/contact");
+	};
+
+	const onTOUPressed = () => {
+		nav.navigate("TermsOfUse");
+	};
+
+	const onPrivacyPressed = () => {
+		nav.navigate("PrivacyPolicy");
 	};
 
 	return (
@@ -45,10 +62,10 @@ const Settings = () => {
 					</View>
 				</TouchableOpacity>
 
-				<TouchableOpacity>
+				<TouchableOpacity onPress={onSignOutPressed}>
 					<View style={styles.row}>
 						<View style={styles.rowIcon}>
-							<MaterialCommunityIcon name="account" color="#000" size={18} />
+							<MaterialIcon name="logout" color="#000" size={18} />
 						</View>
 						<View style={styles.separator} />
 						<Text style={styles.rowLabel}>Sign Out</Text>
@@ -61,14 +78,14 @@ const Settings = () => {
 				<TouchableOpacity onPress={onContactPressed}>
 					<View style={styles.row}>
 						<View style={styles.rowIcon}>
-							<MaterialCommunityIcon name="account" color="#000" size={18} />
+							<AntDesign name="mail" color="#000" size={18} />
 						</View>
 						<View style={styles.separator} />
 						<Text style={styles.rowLabel}>Contact Us</Text>
 					</View>
 				</TouchableOpacity>
 
-				<TouchableOpacity>
+				<TouchableOpacity onPress={onTOUPressed}>
 					<View style={styles.row}>
 						<View style={styles.rowIcon}>
 							<AntDesign name="filetext1" color="#000" size={18} />
@@ -78,7 +95,7 @@ const Settings = () => {
 					</View>
 				</TouchableOpacity>
 
-				<TouchableOpacity>
+				<TouchableOpacity onPress={onPrivacyPressed}>
 					<View style={styles.row}>
 						<View style={styles.rowIcon}>
 							<MaterialIcon name="privacy-tip" color="#000" size={18} />
