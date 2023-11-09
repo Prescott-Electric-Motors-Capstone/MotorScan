@@ -59,7 +59,7 @@ const SignIn = () => {
 	};
 
 	return (
-		<View style={styles.root}>
+		<ScrollView style={styles.root}>
 			<Image source={Logo} style={[styles.logo, { height: height * 0.3 }]} resizeMode="contain" />
 
 			<CustomInput
@@ -91,7 +91,7 @@ const SignIn = () => {
 				onPress={onSignUpPress}
 				type="TERTIARY"
 			/>
-		</View>
+		</ScrollView>
 	);
 };
 

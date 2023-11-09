@@ -1,5 +1,14 @@
 import React from "react";
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Linking } from "react-native";
+import {
+	View,
+	Text,
+	StyleSheet,
+	ScrollView,
+	TouchableOpacity,
+	Linking,
+	Platform,
+	Dimensions,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import { FIREBASE_AUTH } from "../../config/FirebaseConfig";
@@ -28,26 +37,31 @@ const Settings = () => {
 		nav.navigate("PrivacyPolicy");
 	};
 
+	const containerPadding = () => {
+		const screenWidth = Dimensions.get("window").width;
+
+		if (Platform.OS === "ios") {
+			if (Platform.isPad) {
+				return 40; // For iPad
+			} else if (screenWidth <= 375) {
+				return 30; // For small iOS screens
+			} else {
+				return 60; // For other iOS screens
+			}
+		} else {
+			return 20; // For Android
+		}
+	};
+
 	return (
-		<ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
+		<ScrollView
+			contentContainerStyle={[styles.container, { paddingVertical: containerPadding() }]}
+			showsVerticalScrollIndicator={false}
+		>
 			<View style={styles.header}>
 				<Text style={styles.title}>Settings</Text>
 				<Text style={styles.subtitle}>Update your preferences here</Text>
 			</View>
-
-			{/* <View style={styles.section}>
-				<Text style={styles.sectionHeader}>Preferences</Text>
-
-				<TouchableOpacity>
-					<View style={styles.row}>
-						<View style={styles.rowIcon}>
-							<FeatherIcon name="moon" color="#000" size={18} />
-						</View>
-						<View style={styles.separator} />
-						<Text style={styles.rowLabel}>Dark mode</Text>
-					</View>
-				</TouchableOpacity>
-			</View> */}
 
 			<View style={styles.section}>
 				<Text style={styles.sectionHeader}>Account</Text>
@@ -110,9 +124,6 @@ const Settings = () => {
 };
 
 const styles = StyleSheet.create({
-	container: {
-		paddingVertical: 24,
-	},
 	header: {
 		paddingHorizontal: 24,
 		marginBottom: 12,
