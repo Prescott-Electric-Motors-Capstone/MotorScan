@@ -7,7 +7,7 @@ import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 import { useIsKeyboardShown } from "../utils/KeyboardHelper";
-import Dashboard from "../screens/Dashboard";
+import DashboardStack from "./DashboardStack";
 import NewMotor from "../screens/NewMotor";
 import SettingStack from "./SettingStack";
 
@@ -88,7 +88,7 @@ const UserStack = () => {
 	return (
 		<NavigationContainer>
 			<Tab.Navigator screenOptions={screenOptions}>
-				<Tab.Screen name="Dashboard" component={Dashboard} options={dashboardStyle} />
+				<Tab.Screen name="DashboardStack" component={DashboardStack} options={dashboardStyle} />
 				<Tab.Screen name="NewMotor" component={NewMotor} options={newMotorStyle} />
 				<Tab.Screen name="SettingStack" component={SettingStack} options={settingStyle} />
 			</Tab.Navigator>

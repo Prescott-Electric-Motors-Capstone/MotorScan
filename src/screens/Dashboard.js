@@ -1,33 +1,28 @@
-import React, { useEffect, useState } from "react";
-import {
-	View,
-	Text,
-	TextInput,
-	ScrollView,
-	StyleSheet,
-	TouchableOpacity,
-	Pressable,
-	Button,
-} from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import React, { useState, useEffect } from "react";
+import { Alert, View, TextInput, Text, StyleSheet, ScrollView, Platform } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import Icon from "react-native-vector-icons/FontAwesome";
+import { useForm } from "react-hook-form";
+import { Dimensions } from "react-native";
 
 import { FIREBASE_AUTH, FIREBASE_DB } from "../../config/FirebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
 
-const Dashboard = () => {
+import CustomInput from "../components/CustomInput";
+import CustomButton from "../components/CustomButton";
+import MotorCardTemp from "../navigation/MotorCardTemp";
+
+const auth = FIREBASE_AUTH;
+const db = FIREBASE_DB;
+
+const NewMotor = () => {
+	const [searchQuery, setSearchQuery] = useState("");
 	const [name, setName] = useState("");
 
-	const [searchQuery, setSearchQuery] = useState("");
 	const nav = useNavigation();
 
-	const onSettingsPressed = () => {
-		nav.navigate("Settings");
-	};
-
-	const onNewDevicePressed = () => {
-		nav.navigate("NewDevice");
+	const ontempbuttonpressed = () => {
+		// nav.navigate("MotorCardTemp");
+		nav.navigate("MotorView");
 	};
 
 	useEffect(() => {
@@ -37,19 +32,45 @@ const Dashboard = () => {
 
 			if (docSnap.exists()) {
 				setName(docSnap.data().firstName);
+				console.log("Document data:", docSnap.data());
 			} else {
 				console.log("No such document!");
 			}
 		};
 
+		const fetchMotors = async () => {};
+
 		fetchUserName();
+		fetchMotors();
 	}, []);
+	const containerPadding = () => {
+		const screenWidth = Dimensions.get("window").width;
+
+		if (Platform.OS === "ios") {
+			if (Platform.isPad) {
+				return 40; // For iPad
+			} else if (screenWidth <= 375) {
+				return 30; // For small iOS screens
+			} else {
+				return 60; // For other iOS screens
+			}
+		} else {
+			return 20; // For Android
+		}
+	};
 
 	return (
-		<View style={styles.container}>
-			<Text style={styles.title}>Dashboard</Text>
+		<View
+			style={[styles.root, { paddingVertical: containerPadding(), paddingHorizontal: 24 }]}
+			showsVerticalScrollIndicator={false}
+		>
+			<View style={styles.header}>
+				<Text style={styles.title}>Dashboard</Text>
+			</View>
 
-			<View style={styles.searchBar}>
+			<Text>Motors List</Text>
+
+			{/* <View style={styles.searchBar}>
 				<TextInput
 					style={styles.searchInput}
 					placeholder="Search"
@@ -57,23 +78,36 @@ const Dashboard = () => {
 					value={searchQuery}
 					onChangeText={setSearchQuery}
 				/>
-			</View>
+			</View> */}
+
+			{/* ScrollView & render all the motors list */}
+			<ScrollView showsVerticalScrollIndicator={false}>
+				<MotorCardTemp />
+				<MotorCardTemp />
+				<MotorCardTemp />
+				<MotorCardTemp />
+				<MotorCardTemp />
+				<MotorCardTemp />
+				<MotorCardTemp />
+			</ScrollView>
+
+			{/* <CustomButton text="Temp motor card" onPress={ontempbuttonpressed} /> */}
 		</View>
 	);
 };
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: "#FFFFFF",
-		paddingHorizontal: 20,
+	root: {
+		paddingHorizontal: 24,
 	},
-	signOutButton: {
-		width: "100%",
-		textAlign: "center",
-		color: "red",
-		marginTop: 20,
-		fontSize: 20,
+	header: {
+		marginBottom: 12,
+	},
+	title: {
+		fontSize: 32,
+		fontWeight: "700",
+		color: "#1D1D1D",
+		marginBottom: 6,
 	},
 	searchBar: {
 		backgroundColor: "#F5F5F5",
@@ -91,12 +125,6 @@ const styles = StyleSheet.create({
 		marginLeft: 10,
 		textAlign: "left",
 	},
-	title: {
-		fontSize: 24,
-		fontWeight: "bold",
-		color: "#051c60",
-		margin: 10,
-	},
 });
 
-export default Dashboard;
+export default NewMotor;

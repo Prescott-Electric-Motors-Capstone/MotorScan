@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 12,
 	},
 	rowLabel: {
-		fontSize: 17,
+		fontSize: 16,
 		color: "#0C0C0C",
 	},
 	rowIcon: {
